@@ -1,34 +1,50 @@
-# MACROS 0.4 — GitHub APK starter
+# MACROS 0.4 — Flutter prototype
 
-MACROS is a cross-platform music discovery and playlist-transfer app concept.
+MACROS is a prototype for unified music search, playlist transfer UX, discovery and music recognition.
 
-## Included in this starter
-- Flutter app shell with dark theme and accent color choices.
-- Service search handoff for Spotify, VK Music, Yandex Music and SoundCloud.
-- Demo playlist transfer screen with selectable sample tracks.
-- Discovery prompt screen.
-- Recognition button placeholder.
-- GitHub Actions workflow to build an Android release APK.
+## Current status — read this first
 
-## Important: current limitations
-This is an **UI starter**, not a fully integrated music-transfer app.
-- Service account OAuth is not implemented.
-- Playlist URL parsing, track matching, playlist creation and Likes writing are not implemented.
-- Recommendations, microphone-based song recognition, background playback and cloud sync are not implemented.
-- Service API access and permissions must be reviewed and implemented separately. Do not put API secrets in the Flutter app or public repository.
-- The app does not download protected audio or bypass provider restrictions.
+This repository contains a **working UI prototype**, not four completed provider integrations.
 
-## Build APK on GitHub
-1. Create a GitHub repository.
-2. Upload the **contents** of this folder, including the hidden `.github` folder.
-3. Open the repository's **Actions** tab.
-4. Choose **Build MACROS Android APK**.
-5. Press **Run workflow** (or push to `main`).
-6. When the run finishes, open it and download the `macros-android-apk` artifact.
-7. Unzip the artifact to get `app-release.apk`.
+Implemented in this starter:
+- dark mobile UI with theme accent customization;
+- service tiles for Spotify, VK Music, Yandex Music and SoundCloud;
+- unified search handoff (opens provider search pages);
+- playlist URL input and local saved-link persistence;
+- demo track selection screen for the playlist-transfer flow;
+- discovery prompt UI;
+- Shazam-like feature entry point and recognition-module placeholder;
+- settings/sync placeholder;
+- GitHub Actions workflow that builds an Android release APK.
 
-## Build locally
-Install Flutter and Android SDK, then run:
+Not yet implemented:
+- provider OAuth login and API tokens;
+- fetching real playlist tracks from provider links;
+- matching tracks across provider catalogs;
+- creating playlists / adding tracks to Likes in destination accounts;
+- actual personalized recommendation engine;
+- microphone capture and audio fingerprint recognition;
+- background audio engine and lock-screen controls;
+- cloud account and cross-device sync.
+
+The transfer screen currently uses **demo tracks** after a URL is pasted. It does not pretend that it has parsed the real playlist. Provider APIs, scopes, review/approval and terms must be checked individually. Never commit API secrets or user tokens to GitHub.
+
+## Build APK using GitHub Actions
+
+1. Create a GitHub account if needed.
+2. Create a new repository named `macros`.
+3. Upload the contents of this folder to the repository (the `.github` folder must be included).
+4. Commit to the `main` branch.
+5. Open the repository's **Actions** tab.
+6. Choose **Build MACROS APK** and click **Run workflow** (or wait for the push-triggered build).
+7. When the run finishes with a green check, open the run and find **Artifacts**.
+8. Download `macros-android-apk`, unzip it, and install `app-release.apk` on your Android phone. Android may ask you to allow installation from that source.
+
+If Actions fails, open the failed job and copy the error log. The project may need Android Gradle configuration adjustments as Flutter versions change.
+
+## Local build (optional)
+
+Install Flutter stable and Android Studio / Android SDK, then from this folder:
 
 ```bash
 flutter create . --platforms=android
@@ -37,4 +53,41 @@ flutter analyze
 flutter build apk --release
 ```
 
-The APK has not been prebuilt or device-tested as part of this starter archive.
+APK output:
+`build/app/outputs/flutter-apk/app-release.apk`
+
+## Integration roadmap
+
+Suggested order:
+1. Spotify OAuth + playlist read/write scopes.
+2. VK authorization + permitted audio/catalog access; verify availability of required endpoints and permissions.
+3. Yandex Music integration based on currently permitted developer capabilities.
+4. SoundCloud OAuth + playlist/catalog access.
+5. Normalize metadata (`title`, `artist`, `album`, duration, ISRC where available).
+6. Match tracks with confidence scores and let users review ambiguous matches.
+7. Create destination playlist or add to Likes only after user confirmation.
+8. Add audio recognition provider + microphone permission.
+9. Add background playback only for content MACROS is authorized to play; third-party apps may need to handle their own playback.
+10. Add backend sync and secure token storage.
+
+## Product principle
+
+MACROS can help users move playlist metadata and find authorized equivalents. It must not bypass subscription controls, DRM, or provider restrictions, or download protected streams without permission.
+
+
+## MACROS 0.5 — experimental clips module
+
+Added:
+- A dedicated **Клипы** tab.
+- Search for music videos by track/artist through YouTube's public search page.
+- Opening HTTPS links from `youtube.com`, `m.youtube.com`, and `youtu.be` in the official app/browser.
+- A short list of recently opened video links, stored locally.
+
+Important limitations:
+- This is an external-player handoff, not an embedded in-app video player.
+- It does not download, cache, extract, or redistribute videos.
+- Search results and playback are provided by YouTube; availability and playback rules are controlled by that service.
+- No automatic matching of a track to an official music video is implemented yet.
+- The existing playlist import screen remains a demo; it does not read real VK playlists.
+
+To build: push the updated project to GitHub and run the existing **Build MACROS Android APK** workflow.

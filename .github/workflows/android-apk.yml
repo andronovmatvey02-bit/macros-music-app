@@ -1,3 +1,4 @@
+
 name: Build MACROS Android APK
 
 on:
@@ -59,12 +60,13 @@ jobs:
         run: |
           cd android
           ./gradlew :app:assembleRelease
+
       - name: Find generated APK
-        run: |
-          echo "Ищу APK..."
-          find android -type f -name "*.apk"'
+        run: find android -type f -name "*.apk"
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: macros-android-apk
           path: android/app/build/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error

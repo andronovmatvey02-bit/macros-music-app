@@ -59,7 +59,10 @@ jobs:
         run: |
           cd android
           ./gradlew :app:assembleRelease
-
+      - name: Find generated APK
+        run: |
+          echo "Ищу APK..."
+          find android -type f -name "*.apk"'
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:

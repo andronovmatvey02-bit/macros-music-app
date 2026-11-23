@@ -56,11 +56,13 @@ jobs:
           storeFile=macros-upload.jks
           EOF
 
+      
       - name: Configure release signing
         run: |
+          sed -i '1i import java.util.Properties' android/app/build.gradle.kts
           cat >> android/app/build.gradle.kts <<'EOF'
 
-          val keystoreProperties = java.util.Properties()
+          val keystoreProperties = Properties()
           val keystorePropertiesFile = rootProject.file("key.properties")
           keystoreProperties.load(keystorePropertiesFile.inputStream())
 
@@ -80,6 +82,7 @@ jobs:
               }
           }
           EOF
+
 
       - name: Build release APK
         run: |

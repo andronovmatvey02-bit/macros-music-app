@@ -56,17 +56,54 @@ jobs:
           storeFile=macros-upload.jks
           EOF
 
+      - name: Configure release signing
+        run: |
+          cat >> android/app/build.gradle.kts <<'EOF'
+
+          val keystoreProperties = java.util.Properties()
+          val keystorePropertiesFile = rootProject.file("key.properties")
+          keystoreProperties.load(keystorePropertiesFile.inputStream())
+
+          android {
+              signingConfigs {
+                  create("release") {
+                      keyAlias = keystoreProperties.getProperty("keyAlias")
+                      keyPassword = keystoreProperties.getProperty("keyPassword")
+                      storeFile = file(keystoreProperties.getProperty("storeFile"))
+                      storePassword = keystoreProperties.getProperty("storePassword")
+                  }
+              }
+              buildTypes {
+                  getByName("release") {
+                      signingConfig = signingConfigs.getByName("release")
+                  }
+              }
+          }
+          EOF
+
       - name: Build release APK
         run: |
           cd android
           ./gradlew :app:assembleRelease
 
-      - name: Find generated APK
-        run: find android -type f -name "*.apk"
+      - name: Find and prepare APK
+        shell: bash
+        run: |
+          echo "Searching for APK..."
+          APK_PATH="$(find . -type f -name '*.apk' -print -quit)"
+
+          if [ -z "$APK_PATH" ]; then
+            echo "ERROR: APK file was not found."
+            exit 1
+          fi
+
+          echo "APK found: $APK_PATH"
+          mkdir -p output
+          cp "$APK_PATH" output/MACROS.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: macros-android-apk
-          path: android/app/build/outputs/flutter-apk/app-release.apk
+          name: MACROS-Android-APK
+          path: output/MACROS.apk
           if-no-files-found: error

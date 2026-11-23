@@ -42,7 +42,7 @@ jobs:
           mkdir -p android/app
           echo "$KEYSTORE_BASE64" | base64 --decode > android/app/macros-upload.jks
 
-      - name: Build signed release APK
+      - name: Prepare signing properties
         env:
           KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -54,6 +54,9 @@ jobs:
           keyAlias=$KEY_ALIAS
           storeFile=macros-upload.jks
           EOF
+
+      - name: Build release APK
+        run: |
           cd android
           ./gradlew :app:assembleRelease
 
@@ -61,4 +64,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: macros-android-apk
-     path: build/app/outputs/apk/release/app-release.apk
+          path: android/app/build/outputs/apk/release/app-release.apk

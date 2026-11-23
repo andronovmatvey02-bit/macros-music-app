@@ -89,6 +89,17 @@ jobs:
           cd android
           ./gradlew :app:assembleRelease
 
+      - name: Verify APK signature
+        run: |
+          APK_PATH="$(find . -type f -name '*.apk' -print -quit)"
+          if [ -z "$APK_PATH" ]; then
+            echo "APK not found"
+            exit 1
+          fi
+
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -n 1)"
+          "$APKSIGNER" verify --print-certs "$APK_PATH"
+
       - name: Find and prepare APK
         shell: bash
         run: |

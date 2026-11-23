@@ -40,7 +40,14 @@ jobs:
         run: |
           cd android
           ./gradlew :app:signingReport | tee ../signing-report.txt
-          cd ..
+          cd ..      - name: Show signing report in logs
+        run: cat signing-report.txt
+
+      - name: Upload Android signing report
+        uses: actions/upload-artifact@v4
+        with:
+          name: macros-signing-report
+          path: signing-report.txt
 
       - name: Build release APK
         run: flutter build apk --release

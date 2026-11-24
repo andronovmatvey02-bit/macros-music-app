@@ -127,10 +127,13 @@ class _MacrosShellState extends State<MacrosShell> {
           IconButton(tooltip: 'Настройки', onPressed: () => _go(6), icon: const Icon(Icons.tune_rounded)),
         ],
       ),
-      body: SafeArea(child: Column(children: [
-        Expanded(child: IndexedStack(index: _tab, children: pages)),
-        if (_track != 'Выбери музыку') _MiniPlayer(p: p, track: _track, playing: _playing, onTap: () => _showPlayer(context), onPlay: () => setState(() => _playing = !_playing)),
-      ])),
+      body: Stack(fit: StackFit.expand, children: [
+        _ThemeBackdrop(p: p, themeIndex: widget.themeIndex),
+        SafeArea(child: Column(children: [
+          Expanded(child: IndexedStack(index: _tab, children: pages)),
+          if (_track != 'Выбери музыку') _MiniPlayer(p: p, track: _track, playing: _playing, onTap: () => _showPlayer(context), onPlay: () => setState(() => _playing = !_playing)),
+        ])),
+      ]),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab > 4 ? 0 : _tab,
         onDestinationSelected: _go,
@@ -442,7 +445,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(18), children: [
     const Text('Настройки', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w900)),
     const SizedBox(height: 18),
-    const Text('Оформление', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900)),
+    const Text('Оформление и фон', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900)),
     const SizedBox(height: 10),
     for (var i = 0; i < palettes.length; i++)
       _ThemeTile(palette: palettes[i], selected: selectedTheme == i, onTap: () => onThemeChanged(i)),
@@ -452,8 +455,51 @@ class SettingsPage extends StatelessWidget {
     const _SettingsInfo(icon: Icons.animation, title: 'Анимации', subtitle: 'Визуальные эффекты интерфейса'),
     const _SettingsInfo(icon: Icons.privacy_tip_outlined, title: 'Приватность', subtitle: 'Управление видимостью профиля будет добавлено с аккаунтами'),
     const SizedBox(height: 18),
-    const _InfoNote(title: 'MACROS 0.7', text: 'Добавлены четыре темы, разделы коллекции, открытий, совместного прослушивания и клипов. Социальная синхронизация, музыкальные API и реальное воспроизведение ещё требуют серверной и интеграционной разработки.'),
+    const _InfoNote(title: 'Фоновые темы', text: 'Каждая тема меняет не только акцентные цвета, но и градиентный фон, световые пятна и декоративные элементы. Социальная синхронизация, музыкальные API и реальное воспроизведение ещё требуют серверной и интеграционной разработки.'),
   ]);
+}
+
+class _ThemeBackdrop extends StatelessWidget {
+  const _ThemeBackdrop({required this.p, required this.themeIndex});
+  final AppPalette p;
+  final int themeIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    final gradients = <List<Color>>[
+      [const Color(0xFF090711), const Color(0xFF21102F), const Color(0xFF090711)],
+      [const Color(0xFF050608), const Color(0xFF20232A), const Color(0xFF090A0D)],
+      [const Color(0xFFF9F6FF), const Color(0xFFE8DDF8), const Color(0xFFF4F1F8)],
+      [const Color(0xFF06101C), const Color(0xFF0B2940), const Color(0xFF07111D)],
+    ];
+    final glow = <Color>[
+      const Color(0xFFB45CFF), const Color(0xFFB8C0D0),
+      const Color(0xFFC9A5FF), const Color(0xFF24BFE5),
+    ][themeIndex];
+    return IgnorePointer(child: Stack(fit: StackFit.expand, children: [
+      DecoratedBox(decoration: BoxDecoration(
+        gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: gradients[themeIndex]),
+      )),
+      Positioned(top: -105, right: -85, child: _GlowOrb(color: glow.withValues(alpha: themeIndex == 2 ? .20 : .24), size: 300)),
+      Positioned(top: 260, left: -155, child: _GlowOrb(color: p.accent2.withValues(alpha: .13), size: 270)),
+      Positioned(bottom: -150, right: -90, child: _GlowOrb(color: p.accent.withValues(alpha: .14), size: 320)),
+      if (themeIndex == 0) Positioned(top: 150, right: 18, child: Icon(Icons.auto_awesome, size: 18, color: p.accent.withValues(alpha: .22))),
+      if (themeIndex == 1) Positioned(top: 90, left: 24, child: Icon(Icons.blur_circular, size: 110, color: Colors.white.withValues(alpha: .035))),
+      if (themeIndex == 2) Positioned(top: 35, right: 22, child: Icon(Icons.wb_sunny_outlined, size: 82, color: p.accent.withValues(alpha: .10))),
+      if (themeIndex == 3) Positioned(top: 115, right: 20, child: Icon(Icons.blur_on, size: 100, color: p.accent.withValues(alpha: .10))),
+    ]));
+  }
+}
+
+class _GlowOrb extends StatelessWidget {
+  const _GlowOrb({required this.color, required this.size});
+  final Color color;
+  final double size;
+  @override
+  Widget build(BuildContext context) => Container(
+    width: size, height: size,
+    decoration: BoxDecoration(shape: BoxShape.circle, gradient: RadialGradient(colors: [color, color.withValues(alpha: 0)])),
+  );
 }
 
 class _ThemeTile extends StatelessWidget {

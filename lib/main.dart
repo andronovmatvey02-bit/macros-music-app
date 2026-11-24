@@ -425,7 +425,7 @@ class ClipsPage extends StatelessWidget {
       const SizedBox(height: 12),
       FilledButton.icon(onPressed: () {
         final q = c.text.trim();
-        if (q.isNotEmpty) _open('https://www.youtube.com/results?search_query=' + Uri.encodeComponent(q + ' official music video'));
+        if (q.isNotEmpty) _open("https://www.youtube.com/results?search_query=${Uri.encodeComponent('$q official music video')}");
       }, icon: const Icon(Icons.smart_display), label: const Text('Найти клип')),
       const SizedBox(height: 16),
       const _InfoNote(title: 'Как это работает', text: 'Поиск открывается на YouTube. MACROS не скачивает и не копирует видео; просмотр и доступность регулируются самим сервисом.'),
@@ -575,7 +575,7 @@ class _FriendTile extends StatelessWidget {
       CircleAvatar(backgroundColor: p.surface2, child: Icon(Icons.person, color: p.accent)),
       if (online) Positioned(right: 0, bottom: 0, child: Container(width: 12, height: 12, decoration: BoxDecoration(color: const Color(0xFF36D98A), shape: BoxShape.circle, border: Border.all(color: p.background, width: 2)))),
     ]),
-    title: Text('@' + name, style: const TextStyle(fontWeight: FontWeight.w800)),
+    title: Text('@$name', style: const TextStyle(fontWeight: FontWeight.w800)),
     subtitle: Text(online ? 'В сети' : 'Не в сети', style: const TextStyle(color: _muted, fontSize: 12)),
     trailing: IconButton(onPressed: onTap, icon: Icon(Icons.headphones, color: p.accent)),
   );

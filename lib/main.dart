@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -50,7 +50,7 @@ class _MacrosAppState extends State<MacrosApp> {
   Future<void> _setAccent(Color color) async {
     setState(() => _accent = color);
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('macros_accent', color.value);
+    await prefs.setInt('macros_accent', color.toARGB32());
   }
 
   @override
@@ -446,7 +446,7 @@ class SettingsPage extends StatelessWidget {
           spacing: 14,
           runSpacing: 12,
           children: accents.map((color) {
-            final selected = color.value == accent.value;
+            final selected = color.toARGB32() == accent.toARGB32();
             return InkWell(
               onTap: () => onAccentChanged(color),
               borderRadius: BorderRadius.circular(40),
@@ -486,34 +486,6 @@ class _SectionTitle extends StatelessWidget {
         text,
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
       );
-}
-
-class _ServiceTile extends StatelessWidget {
-  const _ServiceTile({required this.name, required this.icon, required this.color, required this.onTap});
-  final String name;
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: _surface, borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(icon, color: color, size: 28),
-            Text(name, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class _ActionCard extends StatelessWidget {

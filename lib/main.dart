@@ -223,7 +223,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 18),
-              const Text('Поймай свою\\nволну.', style: TextStyle(fontSize: 30, height: 1.05, fontWeight: FontWeight.w900)),
+              const Text('Поймай свою\nволну.', style: TextStyle(fontSize: 30, height: 1.05, fontWeight: FontWeight.w900)),
               const SizedBox(height: 8),
               const Text('Подборка музыки, которая постепенно подстраивается под твои предпочтения.', style: TextStyle(color: Color(0xFFD1C4DE), height: 1.4, fontSize: 13)),
               const SizedBox(height: 22),

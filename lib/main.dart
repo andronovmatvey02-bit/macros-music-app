@@ -43,7 +43,7 @@ class _MacrosAppState extends State<MacrosApp> {
     final p = await SharedPreferences.getInstance();
     if (!mounted) return;
     setState(() {
-      _theme = (p.getInt('macros_theme') ?? 0).clamp(0, palettes.length - 1);
+      _theme = (p.getInt('macros_theme') ?? 0).clamp(0, palettes.length - 1).toInt();
       _ready = true;
     });
   }

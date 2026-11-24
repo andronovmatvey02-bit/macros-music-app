@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'catalog_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -114,7 +115,7 @@ class _MacrosShellState extends State<MacrosShell> {
       WavePage(p: p, onPlay: _play, onNavigate: _go, playlists: _playlists),
       CollectionPage(p: p, playlists: _playlists, onChanged: () => setState(() {}), onPlay: _play),
       TransferPage(p: p),
-      DiscoveriesPage(p: p, onPlay: _play),
+      CatalogPage(background: p.background, surface: p.surface, accent: p.accent, accent2: p.accent2),
       TogetherPage(p: p, friends: _friends),
       ClipsPage(p: p),
       SettingsPage(p: p, selectedTheme: widget.themeIndex, onThemeChanged: widget.onThemeChanged),

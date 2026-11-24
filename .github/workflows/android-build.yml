@@ -1,4 +1,4 @@
-name: Build MACROS Android APK
+name: MACROS 0.7.1 — Android APK
 
 on:
   push:

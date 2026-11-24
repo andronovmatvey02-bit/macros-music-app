@@ -1,4 +1,4 @@
-# MACROS 0.4 — Flutter prototype
+# MACROS 0.7 — Flutter prototype
 
 MACROS is a prototype for unified music search, playlist transfer UX, discovery and music recognition.
 
@@ -84,3 +84,14 @@ Important limitations:
 - The existing playlist import screen remains a demo; it does not read real VK playlists.
 
 To build: push the updated project to GitHub and run the existing **Build MACROS Android APK** workflow.
+
+
+## MACROS 0.7 interface update
+
+- Four selectable themes: Neon Purple, Monochrome, Pure Light and Midnight; the selected theme is saved locally.
+- Main navigation for My Wave, Collection, Transfer, Discoveries and Listen Together.
+- Dedicated Clips screen, opened from the top app bar, preserving the 0.5 YouTube search handoff.
+- Collection playlist creation UI, mood controls, discovery categories, transfer selection UI and Listen Together room/friend UI.
+- Mini-player and full-screen player presentation.
+
+The current build is an interactive frontend prototype. It does not yet provide provider OAuth/API integrations, server-backed friend presence or synchronized rooms, actual audio playback, real recommendations, or cloud playlist synchronization. Those require provider approvals, backend services and audio playback rights. Do not interpret demo controls as completed integrations.

@@ -34,7 +34,7 @@ const _starterTracks = <_CatalogTrack>[
   _CatalogTrack('Камин', 'EMIN', 'Камин', 'Поп'),
   _CatalogTrack('Пыяла', 'АИГЕЛ', 'Музыка', 'Электроника'),
   _CatalogTrack('Судно', 'Молчат Дома', 'Этажи', 'Пост-панк'),
-  _CatalogTrack('Малиновая лада', 'GAYAZOV$ BROTHER$', 'Малиновая лада', 'Поп'),
+  _CatalogTrack('Малиновая лада', 'GAYAZOV\$ BROTHER\$', 'Малиновая лада', 'Поп'),
   _CatalogTrack('На заре', 'Альянс', 'На заре', 'Рок'),
   _CatalogTrack('Blinding Lights', 'The Weeknd', 'After Hours', 'Поп'),
   _CatalogTrack('Shape of You', 'Ed Sheeran', '÷', 'Поп'),

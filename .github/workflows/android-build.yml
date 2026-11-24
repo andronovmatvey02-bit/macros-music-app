@@ -25,6 +25,8 @@ jobs:
           cache: true
       - name: Generate missing Android platform files
         run: flutter create --platforms=android --project-name macros .
+      - name: Remove generated placeholder test
+        run: rm -f test/widget_test.dart
       - name: Install dependencies
         run: flutter pub get
       - name: Analyze

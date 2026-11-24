@@ -7,10 +7,10 @@ void main() {
   runApp(const MacrosApp());
 }
 
-const Color _background = Color(0xFF0F1115);
-const Color _surface = Color(0xFF191D24);
-const Color _surface2 = Color(0xFF222833);
-const Color _muted = Color(0xFF9AA4B2);
+const Color _background = Color(0xFF090711);
+const Color _surface = Color(0xFF171222);
+const Color _surface2 = Color(0xFF21172F);
+const Color _muted = Color(0xFFB7AFC6);
 
 class MacrosApp extends StatefulWidget {
   const MacrosApp({super.key});
@@ -20,15 +20,15 @@ class MacrosApp extends StatefulWidget {
 }
 
 class _MacrosAppState extends State<MacrosApp> {
-  Color _accent = const Color(0xFF50CDB5);
+  Color _accent = const Color(0xFFB45CFF);
   bool _loading = true;
 
   static const List<Color> _accents = [
-    Color(0xFFB6D64B),
-    Color(0xFF718CFF),
-    Color(0xFFFF8A50),
-    Color(0xFFC77BFA),
-    Color(0xFF50CDB5),
+    Color(0xFFB45CFF),
+    Color(0xFFFF5EBB),
+    Color(0xFF8C72FF),
+    Color(0xFF55C8FF),
+    Color(0xFFE8DDF7),
   ];
 
   @override
@@ -74,7 +74,7 @@ class _MacrosAppState extends State<MacrosApp> {
           centerTitle: false,
         ),
         navigationBarTheme: NavigationBarThemeData(
-          backgroundColor: const Color(0xFF171D1B),
+          backgroundColor: const Color(0xFF120D1B),
           indicatorColor: _accent.withValues(alpha: 0.22),
           labelTextStyle: WidgetStateProperty.all(
             const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
@@ -170,50 +170,145 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
       children: [
-        Text('Твоя музыка. В одном месте.', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800)),
-        const SizedBox(height: 8),
-        const Text('MACROS объединяет поиск музыки и работу с плейлистами.', style: TextStyle(color: _muted, fontSize: 15)),
-        const SizedBox(height: 24),
-        _SectionTitle('Музыкальные сервисы'),
-        const SizedBox(height: 12),
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 1.65,
+        Row(
           children: [
-            _ServiceTile(name: 'Spotify', icon: Icons.music_note, color: const Color(0xFF1DB954), onTap: () => _openUrl(context, 'https://open.spotify.com')),
-            _ServiceTile(name: 'VK Музыка', icon: Icons.headphones, color: const Color(0xFF4C8BF5), onTap: () => _openUrl(context, 'https://vk.com/music')),
-            _ServiceTile(name: 'Яндекс Музыка', icon: Icons.equalizer, color: const Color(0xFFFFCC00), onTap: () => _openUrl(context, 'https://music.yandex.ru')),
-            _ServiceTile(name: 'SoundCloud', icon: Icons.cloud_outlined, color: const Color(0xFFFF7A24), onTap: () => _openUrl(context, 'https://soundcloud.com')),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('ТВОЯ МУЗЫКА', style: TextStyle(color: _muted, letterSpacing: 2.2, fontSize: 11, fontWeight: FontWeight.w800)),
+                  SizedBox(height: 5),
+                  Text('Моя волна', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, letterSpacing: -0.7)),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.13),
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: accent.withValues(alpha: 0.25)),
+              ),
+              child: Icon(Icons.graphic_eq_rounded, color: accent, size: 26),
+            ),
           ],
         ),
+        const SizedBox(height: 20),
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF38204F), Color(0xFF21152F), Color(0xFF171020)],
+            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.09)),
+            boxShadow: [BoxShadow(color: accent.withValues(alpha: 0.13), blurRadius: 28, offset: const Offset(0, 12))],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(color: accent.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(30)),
+                    child: Text('ПОД ТВОЁ НАСТРОЕНИЕ', style: TextStyle(color: accent, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1)),
+                  ),
+                  const Spacer(),
+                  Icon(Icons.auto_awesome_rounded, color: accent, size: 20),
+                ],
+              ),
+              const SizedBox(height: 18),
+              const Text('Поймай свою\\nволну.', style: TextStyle(fontSize: 30, height: 1.05, fontWeight: FontWeight.w900)),
+              const SizedBox(height: 8),
+              const Text('Подборка музыки, которая постепенно подстраивается под твои предпочтения.', style: TextStyle(color: Color(0xFFD1C4DE), height: 1.4, fontSize: 13)),
+              const SizedBox(height: 22),
+              SizedBox(
+                height: 58,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: List.generate(31, (i) {
+                    final heights = [13, 22, 34, 18, 43, 28, 52, 24, 37, 17, 46, 29, 55, 20, 39, 26, 48, 16, 33, 51, 23, 41, 18, 35, 54, 27, 44, 19, 37, 24, 47];
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [accent, const Color(0xFFFF69BD)]),
+                          ),
+                          child: SizedBox(height: heights[i].toDouble()),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              const SizedBox(height: 18),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton.icon(
+                  onPressed: () => onNavigate(2),
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  label: const Text('Открыть музыкальный поиск'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: accent,
+                    foregroundColor: const Color(0xFF170D20),
+                    minimumSize: const Size.fromHeight(50),
+                    textStyle: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         const SizedBox(height: 24),
-        _SectionTitle('Быстрый доступ'),
-        const SizedBox(height: 12),
+        Row(
+          children: [
+            const Expanded(child: Text('Твоя коллекция', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900))),
+            TextButton(onPressed: () => onNavigate(1), child: Text('Перенос', style: TextStyle(color: accent))),
+          ],
+        ),
+        const SizedBox(height: 10),
         _ActionCard(
-          icon: Icons.swap_horiz_rounded,
-          title: 'Перенос плейлиста',
-          subtitle: 'Добавь ссылку на плейлист, чтобы подготовить перенос',
+          icon: Icons.library_music_rounded,
+          title: 'Любимый плейлист',
+          subtitle: 'Здесь появится твоя самая часто прослушиваемая подборка',
           accent: accent,
           onTap: () => onNavigate(1),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 22),
+        const _SectionTitle('Твои инструменты'),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: _ActionCard(
+                icon: Icons.swap_horiz_rounded,
+                title: 'Перенос',
+                subtitle: 'Плейлисты между сервисами',
+                accent: accent,
+                onTap: () => onNavigate(1),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
         _ActionCard(
-          icon: Icons.search_rounded,
-          title: 'Найти музыку',
-          subtitle: 'Открой поиск и выбери музыкальный сервис',
+          icon: Icons.explore_rounded,
+          title: 'Открыть сервисы',
+          subtitle: 'Поиск в Spotify, VK, Яндекс Музыке и SoundCloud',
           accent: accent,
           onTap: () => onNavigate(2),
         ),
-        const SizedBox(height: 22),
+        const SizedBox(height: 18),
         const _NoticeCard(
-          title: 'Что нового в 0.5',
-          message: 'Обновлена структура экранов и настроек. Подключение музыкальных API ещё не выполнено.',
+          title: 'MACROS в разработке',
+          message: 'Персональная волна и рекомендации пока представлены интерфейсом. Для реального подбора музыки ещё предстоит подключить музыкальные источники и алгоритм предпочтений.',
         ),
       ],
     );

@@ -444,6 +444,8 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(18), children: [
     const Text('Настройки', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w900)),
+    const SizedBox(height: 5),
+    const Text('MACROS 0.7.1 (сборка 8)', style: TextStyle(color: _muted, fontSize: 12, fontWeight: FontWeight.w700)),
     const SizedBox(height: 18),
     const Text('Оформление и фон', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900)),
     const SizedBox(height: 10),

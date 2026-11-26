@@ -79,7 +79,7 @@ class _CatalogPageState extends State<CatalogPage> {
         const SizedBox(height: 6),
         const Text(
           'Исполнители, альбомы и популярные треки в одном месте.',
-          style: TextStyle(color: Color(0xFFAAA2B9)),
+          style: TextStyle(color: Color(0xFF9AAFA8)),
         ),
         const SizedBox(height: 18),
         TextField(
@@ -129,7 +129,7 @@ class _CatalogPageState extends State<CatalogPage> {
             padding: EdgeInsets.symmetric(vertical: 28),
             child: Center(
               child: Text('Ничего не найдено',
-                  style: TextStyle(color: Color(0xFFAAA2B9))),
+                  style: TextStyle(color: Color(0xFF9AAFA8))),
             ),
           ),
         for (var i = 0; i < tracks.length; i++)
@@ -151,7 +151,7 @@ class _CatalogPageState extends State<CatalogPage> {
               Text(
                 'Это стартовый набор метаданных для проверки поиска и интерфейса. Аудиофайлы не скопированы: кнопка у трека открывает поиск официального источника. Каталог можно будет расширять отдельно от подключения воспроизведения.',
                 style: TextStyle(
-                    color: Color(0xFFAAA2B9), fontSize: 12, height: 1.4),
+                    color: Color(0xFF9AAFA8), fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -196,7 +196,7 @@ class _CatalogPageState extends State<CatalogPage> {
             '${track.artist}  •  ${track.album}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Color(0xFFAAA2B9), fontSize: 12),
+            style: const TextStyle(color: Color(0xFF9AAFA8), fontSize: 12),
           ),
           trailing: IconButton(
             tooltip: 'Найти официальный источник',

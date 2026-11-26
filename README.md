@@ -95,3 +95,13 @@ To build: push the updated project to GitHub and run the existing **Build MACROS
 - Mini-player and full-screen player presentation.
 
 The current build is an interactive frontend prototype. It does not yet provide provider OAuth/API integrations, server-backed friend presence or synchronized rooms, actual audio playback, real recommendations, or cloud playlist synchronization. Those require provider approvals, backend services and audio playback rights. Do not interpret demo controls as completed integrations.
+
+
+## MACROS 0.8 — Black Mint visual refresh
+
+- Default theme is now **Black Mint**: near-black backgrounds, deep graphite surfaces and a restrained mint accent.
+- Brand wordmark, selected navigation state, primary actions, chips, playlist artwork and player controls use the mint accent.
+- Main text uses a soft mint-white tone; secondary text uses muted sage for comfortable contrast.
+- Purple, monochrome, light and midnight themes remain available as optional appearance choices.
+- The default theme remains selected for new installs; the existing saved theme preference is still respected.
+- This update is a visual refresh of the existing Flutter screens. It does not add provider licensing, OAuth/API integrations, real audio playback, cloud sync or social backend features.

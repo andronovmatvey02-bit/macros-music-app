@@ -8,7 +8,7 @@ void main() {
   runApp(const MacrosApp());
 }
 
-const _muted = Color(0xFFAAA2B9);
+const _muted = Color(0xFF9AAFA8);
 
 class AppPalette {
   const AppPalette(this.name, this.background, this.surface, this.surface2, this.accent, this.accent2, this.light);
@@ -18,7 +18,7 @@ class AppPalette {
 }
 
 const palettes = <AppPalette>[
-  AppPalette('Neon Purple', Color(0xFF090711), Color(0xFF171222), Color(0xFF261A36), Color(0xFFB45CFF), Color(0xFFFF62BC), false),
+  AppPalette('Black Mint', Color(0xFF080B0B), Color(0xFF121A18), Color(0xFF1D2925), Color(0xFF70DCC0), Color(0xFF70DCC0), false),
   AppPalette('Monochrome', Color(0xFF090A0D), Color(0xFF191B20), Color(0xFF292C33), Color(0xFFE4E6EC), Color(0xFF9EA3AF), false),
   AppPalette('Pure Light', Color(0xFFF4F1F8), Color(0xFFFFFFFF), Color(0xFFEAE4F2), Color(0xFF8246D8), Color(0xFFE65B9E), true),
   AppPalette('Midnight', Color(0xFF07111D), Color(0xFF101F30), Color(0xFF19334A), Color(0xFF42C8E8), Color(0xFF8B7CFF), false),
@@ -122,7 +122,7 @@ class _MacrosShellState extends State<MacrosShell> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MACROS', style: TextStyle(fontSize: 23, fontWeight: FontWeight.w900, letterSpacing: 3)),
+        title: Text('MACROS', style: TextStyle(fontSize: 23, fontWeight: FontWeight.w900, letterSpacing: 3, color: p.accent)),
         actions: [
           IconButton(tooltip: 'Клипы', onPressed: () => _go(5), icon: Icon(Icons.smart_display_outlined, color: p.accent)),
           IconButton(tooltip: 'Настройки', onPressed: () => _go(6), icon: const Icon(Icons.tune_rounded)),
@@ -446,7 +446,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(18), children: [
     const Text('Настройки', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w900)),
     const SizedBox(height: 5),
-    const Text('MACROS 0.7.1 (сборка 8)', style: TextStyle(color: _muted, fontSize: 12, fontWeight: FontWeight.w700)),
+    const Text('MACROS 0.8.0 (сборка 9)', style: TextStyle(color: _muted, fontSize: 12, fontWeight: FontWeight.w700)),
     const SizedBox(height: 18),
     const Text('Оформление и фон', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900)),
     const SizedBox(height: 10),
@@ -470,13 +470,13 @@ class _ThemeBackdrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gradients = <List<Color>>[
-      [const Color(0xFF090711), const Color(0xFF21102F), const Color(0xFF090711)],
+      [const Color(0xFF080B0B), const Color(0xFF101A17), const Color(0xFF080B0B)],
       [const Color(0xFF050608), const Color(0xFF20232A), const Color(0xFF090A0D)],
       [const Color(0xFFF9F6FF), const Color(0xFFE8DDF8), const Color(0xFFF4F1F8)],
       [const Color(0xFF06101C), const Color(0xFF0B2940), const Color(0xFF07111D)],
     ];
     final glow = <Color>[
-      const Color(0xFFB45CFF), const Color(0xFFB8C0D0),
+      const Color(0xFF70DCC0), const Color(0xFFB8C0D0),
       const Color(0xFFC9A5FF), const Color(0xFF24BFE5),
     ][themeIndex];
     return IgnorePointer(child: Stack(fit: StackFit.expand, children: [

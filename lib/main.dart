@@ -62,6 +62,11 @@ class _MacrosAppState extends State<MacrosApp> {
       seedColor: p.accent,
       brightness: p.light ? Brightness.light : Brightness.dark,
       surface: p.surface,
+    ).copyWith(
+      primary: p.accent,
+      secondary: p.accent,
+      onSurface: p.light ? const Color(0xFF18231F) : const Color(0xFFD8F4EB),
+      onSurfaceVariant: p.light ? const Color(0xFF596B64) : const Color(0xFF9AAFA8),
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
